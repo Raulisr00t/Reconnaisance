@@ -7,7 +7,7 @@ function Get-PID {
             $Process = $Process.Replace(".exe", "")
         }
 
-        $running_processes = Get-Process -Name $Process
+        $running_processes = Get-Process -Name $Process -ErrorAction SilentlyContinue
         
         if ($running_processes) {
             Write-Output "$Process Found!"
