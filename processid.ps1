@@ -1,17 +1,22 @@
 function Get-PID {
-    param([string]$process)
+    param([string]$Process)
 
     try {
-        $running_processes = Get-Process -Name $process
+       
+        if ($Process.ToLower().EndsWith(".exe")) {
+            $Process = $Process.Replace(".exe", "")
+        }
+
+        $running_processes = Get-Process -Name $Process
         
         if ($running_processes) {
-            Write-Output "$process Found!"
+            Write-Output "$Process Found!"
             
             $choice = Read-Host "Do you want a unique PID? (Y/N)"
             $c = $choice.ToLower()
 
             if ($c -eq "y" -or $c -eq "yes") {
-         
+                # Displaying only one PID (first instance)
                 $uniquePID = ($running_processes | Select-Object -First 1 -ExpandProperty Id)
                 Write-Output "[+] Unique PID is: $uniquePID [+]"
             } 
@@ -23,7 +28,7 @@ function Get-PID {
                 Write-Output "[-] Invalid choice. Please enter Y or N. [-]"
             }
         } else {
-            Write-Output "[-] No processes found with the name '$process'. [-]"
+            Write-Output "[-] No processes found with the name '$Process'. [-]"
         }
     } catch {
         Write-Host "[-] Error occurred: $_ [-]"
