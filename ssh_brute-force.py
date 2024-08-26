@@ -35,8 +35,8 @@ def ssh_login(username, password, ip, port):
 
 def main():
     global found
-    hostname = 'mansurov'
-    ip = '192.168.1.233'
+    hostname = 'YOUR-USERNAME'
+    ip = '192.168.1.233' #Your Ip
 
     with open('passwd.txt', 'r') as file:
         passwords = [line.strip() for line in file]
